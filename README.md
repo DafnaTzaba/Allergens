@@ -1,6 +1,6 @@
 # An AI program to identify allergenic components in food products.
 
-background of the project. 
+#background of the project. 
 A self-learning python project in an artificial intelligenceat the Academic Institute.
 Uses AI technology, machine learning and text mining in order to 
 turn an image into text and identify requested words. 
