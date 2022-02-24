@@ -1,0 +1,241 @@
+#from kivymd.uix.selectioncontrol import MDCheckbox
+  #:import MDDropdownMenu kivymd.uix.menu.MDDropdownMenu
+  #:import ScrollEffect  kivy.effects.scroll.ScrollEffect
+  #from kivy.effects.scroll.ScrollEffect import ScrollEffect
+  #:import hex kivy.utils.get_color_from_hex
+ScreenManager:
+    font_name:"Sticky Notes.ttf"
+    MenuScreen:
+    UploadScreen:
+    AllergScreen:
+    Lang:
+
+
+
+
+<MenuScreen>:
+    name: 'menu'
+    font_name:"Sticky Notes.ttf"
+	orientation: "vertical"
+	size: root.width, root.height
+	canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'toEat.png'
+
+    MDRectangleFlatButton:
+        text: 'Test your product'
+        font_size:"45"
+        line_color:1, 1, 1, 1
+        text_color: 1, 1, 1, 1
+        font_name:"Sticky Notes.ttf"
+        line_width:"0.1"
+        pos_hint: {'center_x':0.5,'center_y':0.2}
+        on_press:
+            root.manager.current = 'allerg'
+        canvas.before:
+            Color:
+                rgba: (.3058, .4392, .6862, 1) if self.state=='normal' else (0,.7,.7,1)  # visual feedback of press
+            RoundedRectangle:
+                pos: self.pos
+                size: self.size
+                radius: [50,]
+
+
+
+
+
+
+
+
+
+
+
+
+
+<AllergScreen>:
+    name: 'allerg'
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'toEatLight.png'
+    MDLabel:
+        text: 'Select your Allergan'
+        color:.3058, .4392, .6862, 1
+        font_name: 'Sticky Notes.ttf'
+        font_size: "40"
+        pos_hint: {'center_x': .85, 'center_y': .9}
+
+    ScrollView:
+        bar_width: 6
+        scroll_timeout: 250
+        scroll_distance: 20
+        do_scroll_y: True
+        do_scroll_x: False
+        pos_hint: {'top': 1}
+
+        bar_inactive_color: .3058, .4392, .6862, 1
+        bar_color: .5, .5, .5, 1
+        effect_cls: "ScrollEffect"
+        scroll_type: ['bars']
+        size_hint:(.7,.7)
+        pos_hint: {'center_x': .5, 'center_y': .5}
+
+        MDList:
+            id: scroll
+            spacing: 5
+            padding: 10
+
+    MDIconButton:
+        id: next_button
+        disabled: True
+        md_bg_color_disabled: (1,0,0,0.002)
+        pos_hint: {'center_x': .93, 'center_y': .5}
+        icon: 'arrow-right-circle'
+        user_font_size : "48sp"
+        on_release:
+            root.save_checked()
+            root.manager.current = 'upload'
+
+<ListItemWithCheckbox>:
+    bg_color: 1,1,1,1
+    IconLeftWidget:
+        icon: root.icon
+
+    RightCheckbox:
+        color: .3058, .4392, .6862, 1
+        listItem: root
+        on_release: root.check()
+
+        id: cb
+
+
+
+
+<UploadScreen>:
+    name: 'upload'
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'toEatLight.png'
+
+    Image:
+        id: my_image
+        source: "galleryToCameraPage.png"
+        size_hint_y: None  # Tells the layout to ignore the size_hint in y dir
+        height: dp(400)  # The fixed height you want
+
+        pos_hint: {'center_x':0.5,'center_y':0.5}
+
+
+    MDLabel:
+        text: 'Select or take a picture of your product'
+        color:.3058, .4392, .6862, 1
+        font_size:"40"
+        font_name:"Sticky Notes.ttf"
+        line_width:"2"
+        pos_hint: {'center_x': .75, 'center_y': .9}
+
+    MDIconButton:
+        id: back_button
+        pos_hint: {'center_x': .07, 'center_y': .5}
+        icon: 'arrow-left-circle'
+        user_font_size : "48sp"
+        # on_press: root.manager.current = 'allerg'
+        on_press: root.on_upload_back()
+
+    MDIconButton:
+        id: camera_button
+        icon:"camera.png"
+        pos_hint: {'center_x':0.65,'center_y':0.1}
+        on_press:
+            root.start_camera()
+
+    MDIconButton:
+        id: uploued_button
+        icon:"upload_file.png"
+        md_bg_color_disabled: (1,0,0,0.002)
+        pos_hint: {'center_x':0.35,'center_y':0.1}
+        on_press: root.upload_file()
+
+    MDIconButton:
+        id: next_button
+        disabled: True
+        md_bg_color_disabled: (1,0,0,0.002)
+        pos_hint: {'center_x': .93, 'center_y': .5}
+        icon: 'arrow-right-circle'
+        user_font_size : "48sp"
+        on_release:
+            root.manager.current = 'lang'
+
+
+<Lang>:
+    name: 'lang'
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'screen3.png'
+    MDRectangleFlatButton:
+        id: startProcess
+        text: 'Start Process'
+        disabled: True
+        md_bg_color_disabled: (1,0,0,0.002)
+        font_size:"45"
+        line_color:1, 1, 1, 1
+        text_color: 1, 1, 1, 1
+        font_name:"Sticky Notes.ttf"
+        line_width:"0.1"
+        pos_hint: {'center_x':0.5,'center_y':0.2}
+
+        on_press: root.startProcess()
+        canvas.before:
+            Color:
+                rgba: (.3058, .4392, .6862, 1) if self.state=='normal' else (0,.7,.7,1)  # visual feedback of press
+            RoundedRectangle:
+                pos: self.pos
+                size: self.size
+                radius: [50,]
+
+    MDTextField:
+        id: field
+        pos_hint: {'center_x': .5, 'center_y': .6}
+        size_hint_x: None
+        width: "200dp"
+        hint_text: "Choose your product language"
+        font_size:"20"
+        font_name:"Sticky Notes.ttf"
+        line_width:"2"
+        on_focus: if self.focus:root.on_enter(*args)
+
+    MDLabel:
+        id: ansLabel
+        text: ''
+        font_size:"30"
+        font_name:"Cheese Toast.ttf"
+        line_width:"2"
+        pos_hint: {'center_x': .7, 'center_y': .5}
+
+    MDIconButton:
+        id: back_button
+        pos_hint: {'center_x': .07, 'center_y': .5}
+        icon: 'arrow-left-circle'
+        user_font_size : "48sp"
+        on_press: root.manager.current = 'upload'
+
+
+
+
+
+
+<IconListItem>
+
+    IconLeftWidget:
+        icon: root.icon
+    MDScreen
+
+
+
