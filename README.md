@@ -1,6 +1,6 @@
 # An AI program to identify allergenic components in food products.
 
-# background of the project. 
+background of the project. 
 A self-learning python project in an artificial intelligenceat the Academic Institute.
 Uses AI technology, machine learning and text mining in order to 
 turn an image into text and identify requested words. 
@@ -10,7 +10,7 @@ The program help them to
 know which product they can eat even when the product is not in the language they speak.
 The program supports several languages.
 
-# How its work 
+How its work 
 In order to find if you can eat the poroduct or not.
 Firstly tou need choos the components that you cant eat.
 After that you need upload or take a picture of the back of the product.
